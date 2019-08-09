@@ -5,15 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.basecamp.turbolinks.TurbolinksView
-        android:id="@+id/turbolinks_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:background="#fff">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal|center"
+            android:src="@drawable/logo"
+            />
 
         <ProgressBar
             android:id="@+id/indeterminateBar"
@@ -26,6 +29,14 @@
             android:indeterminate="true"
             android:indeterminateTintMode="src_atop"
             android:indeterminateTint="@color/colorPrimary"/>
+
+
     </FrameLayout>
+
+    <com.basecamp.turbolinks.TurbolinksView
+        android:id="@+id/turbolinks_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </LinearLayout>

@@ -14,7 +14,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements TurbolinksAdapter {
     // Change the BASE_URL to an address that your VM or device can hit.
-    private static final String BASE_URL = "https://groupathx.herokuapp.com/";
+    private static final String BASE_URL = "https://groupathx.herokuapp.com";
     private static final String INTENT_URL = "intentUrl";
 
     private String location;
