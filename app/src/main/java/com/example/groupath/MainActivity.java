@@ -9,6 +9,9 @@ import com.basecamp.turbolinks.TurbolinksView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//
+import android.view.View;
+
 public class MainActivity extends AppCompatActivity implements TurbolinksAdapter {
     // Change the BASE_URL to an address that your VM or device can hit.
     private static final String BASE_URL = "https://groupathx.herokuapp.com/";
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements TurbolinksAdapter
 
         Toast.makeText(this, "yo", Toast.LENGTH_SHORT)
                 .show();
-        
+
 
         // Set UserAgent
         TurbolinksSession.getDefault(this).getWebView().getSettings().setUserAgentString("AndroidApp");
@@ -48,10 +51,12 @@ public class MainActivity extends AppCompatActivity implements TurbolinksAdapter
 
         // Execute the visit
 
+        View progressView = (View) findViewById(R.id.frameLayout);
         TurbolinksSession.getDefault(this)
                 .activity(this)
                 .adapter(this)
                 .view(turbolinksView)
+                .progressView(progressView, R.id.indeterminateBar, 300)
                 .visit(location);
     }
 
