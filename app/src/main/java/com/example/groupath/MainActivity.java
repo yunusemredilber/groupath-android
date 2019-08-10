@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity implements TurbolinksAdapter
 
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "yo", Toast.LENGTH_SHORT)
-                .show();
-
 
         // Set UserAgent
         TurbolinksSession.getDefault(this).getWebView().getSettings().setUserAgentString("AndroidApp");
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements TurbolinksAdapter
                 .activity(this)
                 .adapter(this)
                 .view(turbolinksView)
-                .progressView(progressView, R.id.indeterminateBar, 300)
+                .progressView(progressView, R.id.indeterminateBar, 200)
                 .visit(location);
     }
 
@@ -111,6 +108,12 @@ public class MainActivity extends AppCompatActivity implements TurbolinksAdapter
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(INTENT_URL, location);
 
+        // In here we can control our routing
+        // Location is our full url of clicked turbolinks-enabled link.
+
+        //Toast.makeText(this, getSplitPath(location)[1] + " ~> " + action, Toast.LENGTH_SHORT)
+        //        .show();
+
         this.startActivity(intent);
 
     }
@@ -122,7 +125,11 @@ public class MainActivity extends AppCompatActivity implements TurbolinksAdapter
     // Simply forwards to an error page, but you could alternatively show your own native screen
     // or do whatever other kind of error handling you want.
     private void handleError(int code) {
-        if (code == 404) {
+        if (code == 0){
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT)
+                    .show();
+        }
+        else if (code == 404) {
             TurbolinksSession.getDefault(this)
                     .activity(this)
                     .adapter(this)
@@ -130,5 +137,18 @@ public class MainActivity extends AppCompatActivity implements TurbolinksAdapter
                     .view(turbolinksView)
                     .visit(BASE_URL + "/error");
         }
+        else {
+            Toast.makeText(this, "handleError" + String.valueOf(code), Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
+    private String getPath(String location){
+        return location.substring(BASE_URL.length());
+    }
+
+    private String[] getSplitPath(String location){
+        String path = getPath(location);
+        return path.split("/");
     }
 }
