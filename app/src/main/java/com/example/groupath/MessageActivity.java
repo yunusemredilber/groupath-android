@@ -6,8 +6,6 @@ import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
 
 public class MessageActivity extends BaseActivity {
