@@ -7,15 +7,17 @@ import com.basecamp.turbolinks.TurbolinksView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
-public class GroupActivity extends BaseActivity {
+public class MessageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group);
+        setContentView(R.layout.activity_message);
 
         // Set UserAgent
         TurbolinksSession.getDefault(this).getWebView().getSettings().setUserAgentString("AndroidApp");

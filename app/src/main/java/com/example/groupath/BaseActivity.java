@@ -14,11 +14,11 @@ import com.basecamp.turbolinks.TurbolinksView;
 public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter {
 
     // Change the BASE_URL to an address that your VM or device can hit.
-    private static final String BASE_URL = "https://groupathx.herokuapp.com";
-    private static final String INTENT_URL = "intentUrl";
+    protected static final String BASE_URL = "https://groupathx.herokuapp.com";
+    protected static final String INTENT_URL = "intentUrl";
 
-    private String location;
-    private TurbolinksView turbolinksView;
+    protected String location;
+    protected TurbolinksView turbolinksView;
 
     // -----------------------------------------------------------------------
     // Activity overrides
@@ -27,8 +27,6 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getSupportActionBar().hide(); // Hide Top AppBar
 
         setContentView(R.layout.activity_main);
 
@@ -106,10 +104,20 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
     @Override
     public void visitProposedToLocationWithAction(String location, String action) {
         Intent intent;
-        if(getSplitPath(location)[1].equals("g")){
-            intent = new Intent(this, GroupActivity.class);
+        String[] pathArr = getSplitPath(location);
+        // Group Operations
+        if(pathArr[1].equals("g")){
+            if(pathArr.length == 5 && pathArr[3].equals("m")){
+                // Message Screen
+                intent = new Intent(this, MessageActivity.class);
+            }
+            else {
+                // Group Dashboard Screen
+                intent = new Intent(this, GroupActivity.class);
+            }
         }
         else {
+            // Regular Screen
             intent = new Intent(this, MainActivity.class);
         }
         intent.putExtra(INTENT_URL, location);
