@@ -30,7 +30,6 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
         setContentView(R.layout.activity_main);
 
-
         // Set UserAgent
         TurbolinksSession.getDefault(this).getWebView().getSettings().setUserAgentString("AndroidApp");
 
