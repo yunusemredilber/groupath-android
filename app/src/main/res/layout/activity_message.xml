@@ -14,7 +14,12 @@
         android:layout_height="fill_parent"
         android:background="#fff">
 
-
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal|center"
+            android:src="@drawable/undraw_in_progress"
+            />
 
         <ProgressBar
             android:id="@+id/indeterminateBar"
@@ -34,7 +39,7 @@
     <com.basecamp.turbolinks.TurbolinksView
         android:id="@+id/turbolinks_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 
 

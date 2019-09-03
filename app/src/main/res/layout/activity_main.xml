@@ -12,10 +12,10 @@
         android:background="#fff">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_gravity="center_horizontal|center"
-            android:src="@drawable/logo"
+            android:src="@drawable/undraw_in_progress"
             />
 
         <ProgressBar
