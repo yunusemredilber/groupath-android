@@ -16,7 +16,6 @@
             android:name=".MessageActivity"
             android:label="@string/title_activity_message"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar"></activity>
-        <activity android:name=".BaseActivity" />
         <activity
             android:name=".GroupActivity"
             android:label="@string/title_activity_group"
