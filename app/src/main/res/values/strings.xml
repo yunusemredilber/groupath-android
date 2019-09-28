@@ -2,4 +2,9 @@
     <string name="app_name">Groupath</string>
     <string name="title_activity_group">GroupActivity</string>
     <string name="title_activity_message">MessageActivity</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_groups">Groups</string>
+    <string name="title_profile">Profile</string>
 </resources>

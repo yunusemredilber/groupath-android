@@ -1,15 +1,18 @@
 package com.example.groupath;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.basecamp.turbolinks.TurbolinksAdapter;
 import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter {
 
@@ -19,6 +22,8 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
     protected String location;
     protected TurbolinksView turbolinksView;
+
+    protected BottomNavigationView bottomNavigationView;
 
     // -----------------------------------------------------------------------
     // Activity overrides
@@ -42,6 +47,9 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
         // For this example we set a default location, unless one is passed in through an intent
         location = getIntent().getStringExtra(INTENT_URL) != null ? getIntent().getStringExtra(INTENT_URL) : BASE_URL;
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        prepareNavigation();
 
         // Execute the visit
 
@@ -94,7 +102,7 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
     @Override
     public void visitCompleted() {
-
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 
     // The starting point for any href clicked inside a Turbolinks enabled site. In a simple case
@@ -129,6 +137,34 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
         this.startActivity(intent);
 
+    }
+
+    protected void prepareNavigation(){
+        bottomNavigationView.setVisibility(View.INVISIBLE);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Toast.makeText(BaseActivity.this, menuItem.getTitle(), Toast.LENGTH_SHORT)
+                        .show();
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_home:
+                        return true;
+
+                    case R.id.navigation_search:
+
+                        return true;
+
+                    case R.id.navigation_groups:
+
+                        return true;
+
+                    case R.id.navigation_profile:
+
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     // -----------------------------------------------------------------------
