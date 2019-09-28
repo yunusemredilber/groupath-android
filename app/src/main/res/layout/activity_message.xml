@@ -14,11 +14,16 @@
         android:layout_height="fill_parent"
         android:background="#fff">
 
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/paperplane"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="center_horizontal|center"
-            android:src="@drawable/undraw_in_progress"
+            app:lottie_rawRes="@raw/water_drop"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatMode="reverse"
+            app:lottie_renderMode="hardware"
             />
 
         <ProgressBar

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -11,11 +12,16 @@
         android:layout_height="fill_parent"
         android:background="#fff">
 
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/paperplane"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="center_horizontal|center"
-            android:src="@drawable/undraw_in_progress"
+            app:lottie_rawRes="@raw/water_drop"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatMode="reverse"
+            app:lottie_renderMode="hardware"
             />
 
         <ProgressBar
