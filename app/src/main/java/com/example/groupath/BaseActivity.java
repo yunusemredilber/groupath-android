@@ -1,10 +1,11 @@
 package com.example.groupath;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 import com.basecamp.turbolinks.TurbolinksAdapter;
 import com.basecamp.turbolinks.TurbolinksSession;
 import com.basecamp.turbolinks.TurbolinksView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter {
 
@@ -23,7 +26,8 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
     protected String location;
     protected TurbolinksView turbolinksView;
 
-    protected BottomNavigationView bottomNavigationView;
+    protected BottomAppBar bottomAppBar;
+    protected FloatingActionButton fab;
 
     // -----------------------------------------------------------------------
     // Activity overrides
@@ -48,8 +52,19 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
         // For this example we set a default location, unless one is passed in through an intent
         location = getIntent().getStringExtra(INTENT_URL) != null ? getIntent().getStringExtra(INTENT_URL) : BASE_URL;
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        prepareNavigation();
+        bottomAppBar = (BottomAppBar) findViewById(R.id.bottom_app_bar);
+        setSupportActionBar(bottomAppBar);
+        bottomAppBar.setVisibility(View.INVISIBLE);
+
+        fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSnackbar(view, "Test text");
+            }
+        });
+        fab.hide();
 
         // Execute the visit
 
@@ -74,6 +89,20 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
                 .restoreWithCachedSnapshot(true)
                 .view(turbolinksView)
                 .visit(location);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.bottom_navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(BaseActivity.this, item.getTitle().toString(), Toast.LENGTH_SHORT)
+                .show();
+        return true;
     }
 
     // -----------------------------------------------------------------------
@@ -102,7 +131,8 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
     @Override
     public void visitCompleted() {
-        bottomNavigationView.setVisibility(View.VISIBLE);
+        bottomAppBar.setVisibility(View.VISIBLE);
+        fab.show();
     }
 
     // The starting point for any href clicked inside a Turbolinks enabled site. In a simple case
@@ -139,32 +169,35 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
 
     }
 
-    protected void prepareNavigation(){
-        bottomNavigationView.setVisibility(View.INVISIBLE);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Toast.makeText(BaseActivity.this, menuItem.getTitle(), Toast.LENGTH_SHORT)
-                        .show();
-                switch (menuItem.getItemId()) {
-                    case R.id.navigation_home:
-                        return true;
+    // -----------------------------------------------------------------------
+    // Protected
+    // -----------------------------------------------------------------------
 
-                    case R.id.navigation_search:
-
-                        return true;
-
-                    case R.id.navigation_groups:
-
-                        return true;
-
-                    case R.id.navigation_profile:
-
-                        return true;
+    protected void showSnackbar(View view,String text){
+        fab.hide();
+        bottomAppBar.setVisibility(View.INVISIBLE);
+        final Snackbar snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG);
+        snackbar.addCallback(
+            new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar snackbar, int event) {
+                    bottomAppBar.setVisibility(View.VISIBLE);
+                    fab.show();
                 }
-                return false;
+
+                @Override
+                public void onShown(Snackbar snackbar) {
+
+                }
+            }
+        );
+        snackbar.setAction("Ok", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
             }
         });
+        snackbar.show();
     }
 
     // -----------------------------------------------------------------------
