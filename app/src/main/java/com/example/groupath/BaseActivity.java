@@ -17,7 +17,7 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter {
+public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter, ActionBottomDialogFragment.ItemClickListener {
 
     // Change the BASE_URL to an address that your VM or device can hit.
     protected static final String BASE_URL = "https://groupathx.herokuapp.com";
@@ -99,10 +99,30 @@ public class BaseActivity extends AppCompatActivity implements TurbolinksAdapter
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(BaseActivity.this, item.getTitle().toString(), Toast.LENGTH_SHORT)
+    public void onItemClick(String item) {
+        Toast.makeText(BaseActivity.this, item, Toast.LENGTH_SHORT)
                 .show();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getClass().getSimpleName().equals("ActionMenuItem")) {
+            // Open Drawer
+            Toast.makeText(BaseActivity.this, "Open Drawer", Toast.LENGTH_SHORT)
+                    .show();
+            showBottomSheet(findViewById(R.id.frameLayout));
+        } else {
+            // Regular MenuItem (MenuItemImpl Object)
+            Toast.makeText(BaseActivity.this, item.getTitle().toString(), Toast.LENGTH_SHORT)
+                    .show();
+        }
         return true;
+    }
+
+    public void showBottomSheet(View view) {
+        ActionBottomDialogFragment addPhotoBottomDialogFragment =
+                ActionBottomDialogFragment.newInstance();
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(),
+                ActionBottomDialogFragment.TAG);
     }
 
     // -----------------------------------------------------------------------
